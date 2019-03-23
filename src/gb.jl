@@ -17,8 +17,8 @@ export GBAlgorithm,
 abstract type GBAlgorithm end
 
 # Gradient boost model.
-mutable struct GBModel
-  learning_rate::AbstractFloat
+mutable struct GBModel{F <: AbstractFloat}
+  learning_rate::F
   base_funcs::Vector{Function}
 end
 

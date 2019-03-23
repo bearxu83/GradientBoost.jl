@@ -11,10 +11,10 @@ using GradientBoost.LossFunctions
 using GradientBoost.Util
 
 # Gradient boosted base learner algorithm.
-mutable struct GBBL <: GBAlgorithm
+mutable struct GBBL{F <: AbstractFloat} <: GBAlgorithm
   loss_function::LossFunction
-  sampling_rate::AbstractFloat
-  learning_rate::AbstractFloat
+  sampling_rate::F
+  learning_rate::F
   num_iterations::Int
   learner
 
