@@ -18,9 +18,9 @@ mutable struct GBDT{F <: AbstractFloat, D <: AbstractDict} <: GBAlgorithm
   num_iterations::Int
   tree_options::D
 
-  function GBDT(;loss_function=LeastSquares(),
+  function GBDT{F, D}(;loss_function=LeastSquares(),
     sampling_rate=0.6, learning_rate=0.1,
-    num_iterations=100, tree_options=Dict())
+    num_iterations=100, tree_options=Dict()) where {F <: AbstractFloat, D <: AbstractDict}
 
     default_options = Dict(
       :maxlabels => 5,

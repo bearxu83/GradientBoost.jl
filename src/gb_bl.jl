@@ -18,9 +18,9 @@ mutable struct GBBL{F <: AbstractFloat} <: GBAlgorithm
   num_iterations::Int
   learner
 
-  function GBBL(learner; loss_function=LeastSquares(),
+  function GBBL{F}(learner; loss_function=LeastSquares(),
     sampling_rate=0.8, learning_rate=0.1,
-    num_iterations=100)
+    num_iterations=100) where F <: AbstractFloat
 
     new(loss_function, sampling_rate, learning_rate, num_iterations, learner)
   end
