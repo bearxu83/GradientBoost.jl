@@ -6,20 +6,20 @@ export GBBL,
        learner_fit,
        learner_predict
 
-importall GradientBoost.GB
-importall GradientBoost.LossFunctions
-importall GradientBoost.Util
+using GradientBoost.GB
+using GradientBoost.LossFunctions
+using GradientBoost.Util
 
 # Gradient boosted base learner algorithm.
-type GBBL <: GBAlgorithm
+mutable struct GBBL <: GBAlgorithm
   loss_function::LossFunction
-  sampling_rate::FloatingPoint
-  learning_rate::FloatingPoint
+  sampling_rate::AbstractFloat
+  learning_rate::AbstractFloat
   num_iterations::Int
   learner
 
   function GBBL(learner; loss_function=LeastSquares(),
-    sampling_rate=0.8, learning_rate=0.1, 
+    sampling_rate=0.8, learning_rate=0.1,
     num_iterations=100)
 
     new(loss_function, sampling_rate, learning_rate, num_iterations, learner)

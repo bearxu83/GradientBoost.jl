@@ -4,14 +4,14 @@ module GBDecisionTree
 using DecisionTree
 using DataStructures
 
-importall GradientBoost.GB
-importall GradientBoost.LossFunctions
+using GradientBoost.GB
+using GradientBoost.LossFunctions
 
 export GBDT,
        build_base_func
 
 # Gradient boosted decision tree algorithm.
-type GBDT <: GBAlgorithm
+mutable struct GBDT <: GBAlgorithm
   loss_function::LossFunction
   sampling_rate::FloatingPoint
   learning_rate::FloatingPoint
@@ -19,7 +19,7 @@ type GBDT <: GBAlgorithm
   tree_options::Dict
 
   function GBDT(;loss_function=LeastSquares(),
-    sampling_rate=0.6, learning_rate=0.1, 
+    sampling_rate=0.6, learning_rate=0.1,
     num_iterations=100, tree_options=Dict())
 
     default_options = {
@@ -40,14 +40,14 @@ function GB.build_base_func(
 
   # Train learner
   model = build_tree(
-    psuedo, instances, 
+    psuedo, instances,
     gb.tree_options[:maxlabels],
-    gb.tree_options[:nsubfeatures] 
+    gb.tree_options[:nsubfeatures]
   )
   psuedo_pred = apply_tree(model, instances)
 
   # Update regions (leaves)
-  # NOTE(svs14): Trees are immutable, 
+  # NOTE(svs14): Trees are immutable,
   #              override leaves by having node-to-val mapping.
   inst_node_index = InstanceNodeIndex(model, instances)
   function val_func(node)
@@ -87,7 +87,7 @@ end
 
 # DT Helper Functions
 
-type InstanceNodeIndex
+mutable struct InstanceNodeIndex
   i2n::Vector{Leaf}
   n2i::DefaultDict{Leaf, Vector{Int}}
 

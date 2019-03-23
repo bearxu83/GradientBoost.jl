@@ -10,8 +10,8 @@ export weighted_median,
 # @param weights Weights of values.
 # @param values Values.
 # @return Weighted median.
-function weighted_median{U,V<:Real}(
-  weights::AbstractVector{U}, values::AbstractVector{V})
+function weighted_median(
+  weights::AbstractVector, values::AbstractVector{V}) where V <: Real
 
   k = 1
   sorted_ind = sortperm(values)

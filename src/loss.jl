@@ -1,7 +1,7 @@
 # Loss functions.
 module LossFunctions
 
-importall GradientBoost.Util
+using GradientBoost.Util
 
 export LossFunction,
        loss,
@@ -12,10 +12,10 @@ export LossFunction,
        BinomialDeviance
 
 # Loss function.
-abstract LossFunction
-
+#@ abstract LossFunction
+abstract type LossFunction end
 # Calculates loss.
-# 
+#
 # @param lf Loss function.
 # @param y True response.
 # @param y_pred Approximated response.
@@ -38,7 +38,7 @@ negative_gradient(lf::LossFunction, y, y_pred) = err_must_be_overriden()
 minimizing_scalar(lf::LossFunction, y) = err_must_be_overriden()
 
 # LeastSquares
-type LeastSquares <: LossFunction; end
+abstract type LeastSquares <: LossFunction end
 
 function loss(lf::LeastSquares, y, y_pred)
   mean((y .- y_pred) .^ 2.0)
@@ -54,7 +54,7 @@ end
 
 
 # LeastAbsoluteDeviation
-type LeastAbsoluteDeviation <: LossFunction; end
+abstract type LeastAbsoluteDeviation <: LossFunction end
 
 function loss(lf::LeastAbsoluteDeviation, y, y_pred)
   mean(abs(y .- y_pred))
@@ -70,7 +70,7 @@ end
 
 
 # Binomial Deviance (Two Classes {0,1})
-type BinomialDeviance <: LossFunction; end
+abstract type BinomialDeviance <: LossFunction end
 
 function loss(lf::BinomialDeviance, y, y_pred)
   -2.0 .* mean(y .* y_pred .- log(1.0 .+ exp(y_pred)))
