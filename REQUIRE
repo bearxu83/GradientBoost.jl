@@ -1,5 +1,5 @@
-julia 0.3-
-FactCheck 0.1-
-DecisionTree 0.3-
-DataStructures 0.2-
-GLM 0.4-
+julia 1.0-
+FactCheck 0.3-
+DecisionTree 0.7-
+DataStructures 0.14-
+GLM 1.1-
