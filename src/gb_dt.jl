@@ -23,7 +23,7 @@ mutable struct GBDT{F <: AbstractFloat, D <: AbstractDict} <: GBAlgorithm
     num_iterations=100, tree_options=Dict()) where {F <: AbstractFloat, D <: AbstractDict}
 
     default_options = Dict(
-      :maxlabels => 5,
+      :maxdepth => 6,
       :nsubfeatures => 0
     )
     options = merge(default_options, tree_options)
@@ -41,8 +41,8 @@ function GB.build_base_func(
   # Train learner
   model = build_tree(
     psuedo, instances,
-    gb.tree_options[:maxlabels],
-    gb.tree_options[:nsubfeatures]
+    gb.tree_options[:nsubfeatures],
+    gb.tree_options[:maxdepth]
   )
   psuedo_pred = apply_tree(model, instances)
 
