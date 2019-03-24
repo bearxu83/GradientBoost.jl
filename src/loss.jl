@@ -38,7 +38,7 @@ negative_gradient(lf::LossFunction, y, y_pred) = err_must_be_overriden()
 minimizing_scalar(lf::LossFunction, y) = err_must_be_overriden()
 
 # LeastSquares
-abstract type LeastSquares <: LossFunction end
+struct LeastSquares <: LossFunction end
 
 function loss(lf::LeastSquares, y, y_pred)
   mean((y .- y_pred) .^ 2.0)
@@ -54,7 +54,7 @@ end
 
 
 # LeastAbsoluteDeviation
-abstract type LeastAbsoluteDeviation <: LossFunction end
+struct LeastAbsoluteDeviation <: LossFunction end
 
 function loss(lf::LeastAbsoluteDeviation, y, y_pred)
   mean(abs(y .- y_pred))
@@ -70,7 +70,7 @@ end
 
 
 # Binomial Deviance (Two Classes {0,1})
-abstract type BinomialDeviance <: LossFunction end
+struct BinomialDeviance <: LossFunction end
 
 function loss(lf::BinomialDeviance, y, y_pred)
   -2.0 .* mean(y .* y_pred .- log(1.0 .+ exp(y_pred)))
