@@ -1,6 +1,7 @@
 # Gradient boosting.
 module GB
 
+using Random
 using GradientBoost.Util
 using GradientBoost.LossFunctions
 
@@ -113,7 +114,7 @@ function create_sample_indices(gb::GBAlgorithm, instances, labels)
   n = size(instances, 1)
   prop = gb.sampling_rate
 
-  ind = randperm(n)[1:int(prop * n)]
+  ind = randperm(n)[1:Int(round(prop * n))]
 end
 
 end # module

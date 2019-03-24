@@ -93,8 +93,8 @@ mutable struct InstanceNodeIndex
 
   function InstanceNodeIndex(tree::Union{Leaf,Node}, instances)
     num_instances = size(instances, 1)
-    i2n = Array(Leaf, num_instances)
-    n2i = DefaultDict(Leaf, Vector{Int}, () -> Int[])
+    i2n = Array{Leaf, 1}(undef, num_instances)
+    n2i = DefaultDict{Leaf, Vector{Int}}(Int[])
 
     for i = 1:num_instances
       node = instance_to_node(tree, instances[i,:])
