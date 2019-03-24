@@ -31,7 +31,7 @@ end
 function stochastic_gradient_boost(gb::GBAlgorithm, instances, labels)
   # Initialize base functions collection
   num_iterations = gb.num_iterations
-  base_funcs = Array(Function, num_iterations+1)
+  base_funcs = Array{Function, 1}(undef, num_iterations+1)
 
   # Create initial base function
   initial_val = minimizing_scalar(gb.loss_function, labels)
